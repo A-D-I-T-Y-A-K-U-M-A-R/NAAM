@@ -477,47 +477,46 @@ function renderNotebook(){
             notebookData.length
         );
 
-    for(let i=0;i<272;i++){
+  for(let i=0;i<272;i++){
 
-        const cell =
-            document.createElement("div");
+    const cell =
+        document.createElement("div");
 
-        cell.className = "cell";
+    cell.className = "cell";
 
-        const dataIndex =
-            startIndex + i;
+    const dataIndex =
+        startIndex + i;
 
-       if(dataIndex < endIndex){
+    if(dataIndex < endIndex){
 
-    const img =
-        document.createElement(
-            "img"
+        const img =
+            document.createElement(
+                "img"
+            );
+
+        img.src =
+            notebookData[dataIndex];
+
+        img.style.width =
+            "100%";
+
+        img.style.height =
+            "100%";
+
+        img.style.objectFit =
+            "contain";
+
+        cell.appendChild(
+            img
         );
-
-    img.src =
-        notebookData[dataIndex];
-
-    img.style.width =
-        "100%";
-
-    img.style.height =
-        "100%";
-
-    img.style.objectFit =
-        "contain";
-
-    cell.appendChild(
-        img
-    );
-
-}
-
-        }
-
-        grid.appendChild(cell);
 
     }
 
+    grid.appendChild(
+        cell
+    );
+
+}
     page.appendChild(grid);
 
     const pageNumber =
@@ -800,110 +799,4 @@ function getProcessedImage(){
 
 }
 
-const MODEL_URL = "./my_model/";
 
-let aiModel = null;
-loadAI();
-
-async function loadAI(){
-
-    try{
-
-        aiModel =
-        await tmImage.load(
-            MODEL_URL + "model.json",
-            MODEL_URL + "metadata.json"
-        );
-
-        console.log(
-            "AI Model Loaded"
-        );
-
-    }
- catch(err){
-
-    console.error(
-        "FULL ERROR:",
-        err
-    );
-
-    alert(
-        "AI Model Load Failed"
-    );
-
-}
-
-}
-
-async function detectName(){
-
-    if(!aiModel){
-
-        console.log(
-            "Model Not Loaded"
-        );
-
-        return null;
-
-    }
-
-    const prediction =
-    await aiModel.predict(
-        canvas
-    );
-
-    let best =
-    prediction[0];
-
-    for(
-        let i=1;
-        i<prediction.length;
-        i++
-    ){
-
-        if(
-            prediction[i].probability >
-            best.probability
-        ){
-
-            best =
-            prediction[i];
-
-        }
-
-    }
-
-    console.log(
-        best.className,
-        best.probability
-    );
-
-    if(
-        best.probability < 0.80
-    ){
-
-        return null;
-
-    }
-
-    if(
-        best.className ===
-        "RAM"
-    ){
-
-        return "राम";
-
-    }
-
-    if(
-        best.className ===
-        "RADHA"
-    ){
-
-        return "राधा";
-
-    }
-
-    return null;
-
-}
