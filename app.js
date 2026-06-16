@@ -683,7 +683,7 @@ goToLatestPage();
 renderNotebook();
 
 saveData();
-loadAI();
+
 
 /* ===========================
    OPTIONAL TEST DATA
@@ -787,6 +787,7 @@ function getProcessedImage(){
 const MODEL_URL = "./my_model/";
 
 let aiModel = null;
+loadAI();
 
 async function loadAI(){
 
