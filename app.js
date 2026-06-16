@@ -326,9 +326,7 @@ async function processCanvas(){
 
         if(result === null){
 
-            alert(
-                "नाम गलत है।\nकृपया केवल राम या राधा लिखें।"
-            );
+          //  alert( "नाम गलत है।\nकृपया केवल राम या राधा लिखें।" );
 
             clearCanvas();
 
@@ -345,9 +343,7 @@ async function processCanvas(){
 
         console.log(err);
 
-        alert(
-            "नाम पहचानने में त्रुटि हुई।"
-        );
+      //  alert("नाम पहचानने में त्रुटि हुई।" );
 
         clearCanvas();
 
