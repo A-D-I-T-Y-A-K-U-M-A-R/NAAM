@@ -683,6 +683,7 @@ goToLatestPage();
 renderNotebook();
 
 saveData();
+loadAI();
 
 /* ===========================
    OPTIONAL TEST DATA
@@ -782,82 +783,104 @@ function getProcessedImage(){
     );
 
 }
-function detectName(){
-   let value = prompt("क्या लिखा था?");
+
+const MODEL_URL = "./my_model/";
+
+let aiModel = null;
+
+async function loadAI(){
+
+    try{
+
+        aiModel =
+        await tmImage.load(
+            MODEL_URL + "model.json",
+            MODEL_URL + "metadata.json"
+        );
+
+        console.log(
+            "AI Model Loaded"
+        );
+
+    }
+    catch(err){
+
+        console.error(err);
+
+        alert(
+            "AI Model Load Failed"
+        );
+
+    }
+
 }
+
 async function detectName(){
 
-    const image =
-    getProcessedImage();
+    if(!aiModel){
 
-   const result =
-    await Tesseract.recognize(
-        image,
-        "eng+hin",
-        {
-            logger:m=>console.log(m)
-        }
+        console.log(
+            "Model Not Loaded"
+        );
+
+        return null;
+
+    }
+
+    const prediction =
+    await aiModel.predict(
+        canvas
     );
 
-    let text =
-        result.data.text
-        .trim()
-        .toLowerCase();
+    let best =
+    prediction[0];
 
-    text = text.replace(/\s+/g,"");
-
-    console.log(
-        "OCR:",
-        text
-    );
-
-    const ramWords = [
-
-        "ram",
-        "raam",
-        "राम",
-
-        "rarn",
-        "rnm",
-        "ram"
-
-    ];
-
-    const radhaWords = [
-
-        "radha",
-        "राधा",
-
-        "radhaa",
-        "radhaa"
-
-    ];
-
-    for(const word of ramWords){
+    for(
+        let i=1;
+        i<prediction.length;
+        i++
+    ){
 
         if(
-            text.includes(
-                word.toLowerCase()
-            )
+            prediction[i].probability >
+            best.probability
         ){
 
-            return "राम";
+            best =
+            prediction[i];
 
         }
 
     }
 
-    for(const word of radhaWords){
+    console.log(
+        best.className,
+        best.probability
+    );
 
-        if(
-            text.includes(
-                word.toLowerCase()
-            )
-        ){
+    if(
+        best.probability < 0.80
+    ){
 
-            return "राधा";
+        return null;
 
-        }
+    }
+
+    if(
+        best.className ===
+        "RAM"
+    ){
+
+        return "राम";
+
+    }
+
+    if(
+        best.className ===
+        "RADHA"
+    ){
+
+        return "राधा";
 
     }
 
