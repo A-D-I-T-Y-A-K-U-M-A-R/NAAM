@@ -309,7 +309,7 @@ function startInactivityCheck() {
 
         processCanvas();
 
-    }, 1000);
+    }, 9999);
 
 }
 
@@ -688,7 +688,7 @@ saveData();
    OPTIONAL TEST DATA
 =========================== */
 
-/*
+
 for(let i=0;i<600;i++){
 
     if(i % 2 === 0){
@@ -706,7 +706,7 @@ for(let i=0;i<600;i++){
 saveData();
 
 renderNotebook();
-*/
+
 
 console.log(
     "Naam Pustak Ready"
