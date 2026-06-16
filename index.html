@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>नाम लेखन</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: "Noto Sans Devanagari", sans-serif;
+}
+
+body{
+    background:cyan;
+    min-height:100vh;
+}
+
+/* ---------- COMMON ---------- */
+
+.page{
+    width:100%;
+    min-height:100vh;
+    padding:20px;
+}
+
+.hidden{
+    display:none;
+}
+
+h1{
+    text-align:center;
+    margin-bottom:15px;
+}
+
+.saffron-btn{
+    background:#ff9933;
+    color:white;
+    border:none;
+    padding:12px 24px;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:16px;
+    transition:0.2s;
+}
+
+.saffron-btn:hover{
+    transform:scale(1.05);
+}
+
+.saffron-btn:active{
+    transform:scale(0.92);
+}
+
+/* ---------- PAGE 1 ---------- */
+
+#canvasContainer{
+    width:100%;
+    display:flex;
+    justify-content:center;
+    margin-top:20px;
+}
+
+#drawingCanvas{
+    background:white;
+    border:2px solid black;
+    width:min(95vw,1200px);
+    height:70vh;
+    touch-action:none;
+}
+
+/* ---------- PAGE 2 ---------- */
+
+.topBar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+.countBox{
+    font-size:18px;
+    font-weight:bold;
+}
+
+#bookContainer{
+    margin-top:20px;
+    display:flex;
+    justify-content:center;
+}
+
+.book-page{
+    width:210mm;
+    height:295mm;
+    background:white;
+    position:relative;
+    box-shadow:0 0 10px rgba(0,0,0,.3);
+    overflow:hidden;
+}
+
+/* Cover Page */
+
+#coverPage{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+}
+
+#coverImage{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+/* Notebook Page */
+
+.gridPage{
+    padding-top:11.5mm;
+    padding-bottom:11.5mm;
+}
+
+.grid{
+    width:100%;
+    height:272mm;
+
+    display:grid;
+
+    grid-template-columns:repeat(8,1fr);
+    grid-template-rows:repeat(34,8mm);
+}
+
+.cell{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:16px;
+}
+
+.page-number{
+    position:absolute;
+    left:8mm;
+    bottom:3mm;
+    font-size:14px;
+}
+
+/* Bottom Controls */
+
+.bottomControls{
+    margin-top:20px;
+    display:flex;
+    gap:10px;
+    justify-content:center;
+    flex-wrap:wrap;
+}
+
+#jumpPage{
+    width:100px;
+    padding:8px;
+}
+
+</style>
+</head>
+<body>
+
+<!-- PAGE 1 -->
+
+<div id="page1" class="page">
+
+    <h1>नाम लेखन</h1>
+
+    <div style="text-align:center;">
+        <button
+            id="openBookBtn"
+            class="saffron-btn">
+            पुस्तक
+        </button>
+    </div>
+
+    <div id="canvasContainer">
+
+        <canvas id="drawingCanvas"></canvas>
+
+    </div>
+
+</div>
+
+<!-- PAGE 2 -->
+
+<div id="page2" class="page hidden">
+
+    <h1>नाम पुस्तक</h1>
+
+    <div class="topBar">
+
+        <button
+            id="backBtn"
+            class="saffron-btn">
+            नाम लेखन
+        </button>
+
+        <div class="countBox">
+
+            राम :
+            <span id="ramCount">0</span>
+
+            &nbsp;&nbsp;&nbsp;
+
+            राधा :
+            <span id="radhaCount">0</span>
+
+        </div>
+
+    </div>
+
+    <div id="bookContainer">
+
+        <!-- JS Fill Karega -->
+
+    </div>
+
+    <div class="bottomControls">
+
+        <button
+            id="prevPageBtn"
+            class="saffron-btn">
+            Previous
+        </button>
+
+        <button
+            id="nextPageBtn"
+            class="saffron-btn">
+            Next
+        </button>
+
+        <input
+            type="number"
+            id="jumpPage"
+            placeholder="Page No">
+
+        <button
+            id="jumpBtn"
+            class="saffron-btn">
+            Go
+        </button>
+
+        <button
+            id="printBtn"
+            class="saffron-btn">
+            नाम पुस्तक प्रिंट
+        </button>
+
+    </div>
+
+</div>
+
+<script src="app.js"></script>
+
+</body>
+</html>
