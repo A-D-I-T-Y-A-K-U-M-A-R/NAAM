@@ -309,7 +309,7 @@ function startInactivityCheck() {
 
         processCanvas();
 
-    }, 1000);
+    }, 3000);
 
 }
 
@@ -321,20 +321,18 @@ async function processCanvas(){
 
     try{
 
-        const result =
-            await detectName();
+        const imageData =
+            canvas.toDataURL(
+                "image/png"
+            );
 
-        if(result === null){
+        notebookData.push(
+            imageData
+        );
 
-          //  alert( "नाम गलत है।\nकृपया केवल राम या राधा लिखें।" );
+        saveData();
 
-            clearCanvas();
-
-            return;
-
-        }
-
-        addName(result);
+        renderNotebook();
 
         clearCanvas();
 
@@ -342,8 +340,6 @@ async function processCanvas(){
     catch(err){
 
         console.log(err);
-
-      //  alert("नाम पहचानने में त्रुटि हुई।" );
 
         clearCanvas();
 
@@ -491,10 +487,30 @@ function renderNotebook(){
         const dataIndex =
             startIndex + i;
 
-        if(dataIndex < endIndex){
+       if(dataIndex < endIndex){
 
-            cell.textContent =
-                notebookData[dataIndex];
+    const img =
+        document.createElement(
+            "img"
+        );
+
+    img.src =
+        notebookData[dataIndex];
+
+    img.style.width =
+        "100%";
+
+    img.style.height =
+        "100%";
+
+    img.style.objectFit =
+        "contain";
+
+    cell.appendChild(
+        img
+    );
+
+}
 
         }
 
