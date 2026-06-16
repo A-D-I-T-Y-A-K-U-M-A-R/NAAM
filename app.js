@@ -127,7 +127,16 @@ function resizeCanvas() {
     const rect = canvas.getBoundingClientRect();
 
     canvas.width = rect.width;
+
     canvas.height = rect.height;
+
+    ctx.lineWidth = 8;
+
+    ctx.lineCap = "round";
+
+    ctx.lineJoin = "round";
+
+    ctx.strokeStyle = "#0b3d91";
 
     clearCanvas();
 
@@ -141,7 +150,7 @@ resizeCanvas();
    CANVAS STYLE
 =========================== */
 
-ctx.lineWidth = 4;
+ctx.lineWidth = 8;
 
 ctx.lineCap = "round";
 
