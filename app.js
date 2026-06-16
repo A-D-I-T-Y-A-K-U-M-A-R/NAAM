@@ -309,7 +309,7 @@ function startInactivityCheck() {
 
         processCanvas();
 
-    }, 9999);
+    }, 999);
 
 }
 
